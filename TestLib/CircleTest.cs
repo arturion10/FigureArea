@@ -1,14 +1,21 @@
-﻿using FigureArea;
-
-namespace TestLib
+﻿namespace TestLib
 {
     public class CircleTest
     {
-        [Fact]
-        public void GetArea_Test()
+        [Theory]
+        [InlineData(3.1416, 1)]
+        [InlineData(3631.6811, 34)]
+        public void GetArea_HappyPath(double aria, double radius)
         {
-            Assert.Equal(Math.PI, new Сircle(1).GetArea());
-            Assert.Equal(3631.6811, Math.Round(new Сircle(34).GetArea(), 4));
+            Assert.Equal(aria, Math.Round(new Сircle(radius).Area, 4));
+        }
+
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(double.MaxValue)]
+        public void GetArea_InvalidRadius_Exception(double radius)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Сircle(radius));
         }
     }
 }

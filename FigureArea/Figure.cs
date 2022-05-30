@@ -1,12 +1,12 @@
 ﻿namespace FigureArea
 {
-    public class Figure
+    /// <summary>
+    /// Базовый класс для всех фигур
+    /// </summary>
+    public abstract class Figure
     {
-        public double Area { get; set; }
-        
-        public virtual double GetArea()
-        {
-            return Area;
-        }
+        public double Area => CalculateArea();
+
+        public abstract double CalculateArea();
     }
 }

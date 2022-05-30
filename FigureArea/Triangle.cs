@@ -1,31 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FigureArea
+﻿namespace FigureArea
 {
     public class Triangle : Figure
     {
-        public double ASide { get; set; }
-        public double BSide { get; set; }
-        public double CSide { get; set; }
+        public double ASide { get; }
+        public double BSide { get; }
+        public double CSide { get; }
 
         public Triangle(double aSide, double bSide, double cSide)
         {
+            if (aSide < 0 || bSide < 0 || cSide < 0)
+                throw new ArgumentOutOfRangeException();
+
+
             ASide = aSide;
             BSide = bSide;
             CSide = cSide;
         }
 
-        public override double GetArea()
+        public override double CalculateArea()
         {
-            double p = (ASide + BSide + CSide) / 2;
-            Area = Math.Sqrt(p*(p-ASide)*(p-BSide)*(p-CSide));
-            return Area;
+            var p = (ASide + BSide + CSide) / 2;
+            return Math.Sqrt(p * (p - ASide) * (p - BSide) * (p - CSide));
         }
-        public bool IsItARightTriangle()
+
+        /// <summary>
+        /// Проверка осуществляется по теореме Пифагора.
+        /// </summary>
+        public bool IsRightTriangle()
         {
             if (ASide > BSide)
                 if (ASide > CSide)
@@ -34,7 +35,7 @@ namespace FigureArea
                     return CSide * CSide == ASide * ASide + BSide * BSide;
             else
                 if (BSide > CSide)
-                    return BSide * BSide == CSide * CSide + ASide * ASide;
+                return BSide * BSide == CSide * CSide + ASide * ASide;
             return CSide * CSide == ASide * ASide + BSide * BSide;
         }
     }
